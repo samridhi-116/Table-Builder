@@ -2,8 +2,8 @@ import React from 'react';
 import {MdOutlineSearch} from 'react-icons/md';
 import useSearch from '../utils/useSearch';
 
-const Table = ({ data, columns }) => {
-    
+const Table = ({ data, dataItems }) => {
+
     const { searchData, filteredData, handleSearch } = useSearch(data);
 
   return (
@@ -27,16 +27,16 @@ const Table = ({ data, columns }) => {
         <table className=' w-4/5 mx-auto table-fixed my-6 border-separate border-spacing-2 border border-slate-400'>
             <thead>
                 <tr>
-                    {columns.map((column) => (
-                        <th key={column.key} className=' text-left'>{column.header}</th>
+                    {dataItems.map((item) => (
+                        <th key={item.key} className=' text-left'>{item.header}</th>
                     ))}
                 </tr>
             </thead>
             <tbody>
                 {filteredData.map((item) => (
                     <tr key={item.id}>
-                        {columns.map((column) => (
-                            <td key={column.key}>{item[column.key]}</td>
+                        {dataItems.map((itemData) => (
+                            <td key={itemData.key}>{item[itemData.key]}</td>
                         ))}
                     </tr>
                 ))}

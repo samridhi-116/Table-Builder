@@ -13,7 +13,8 @@ const Products = () => {
         const json = await data.json();
         setProductsData(json?.products);
     }
-    const productColumns = [
+    console.log(productsData)
+    const productItems = [
       { key: 'id', header: 'Product ID' },
       { key: 'title', header: 'Title' },
       { key: 'price', header: 'Price' },
@@ -23,7 +24,7 @@ const Products = () => {
   ];
   return (
     <div>
-        <Table data={productsData} columns={productColumns} />
+        <Table data={productsData} dataItems={productItems} />
     </div>
   )
 }

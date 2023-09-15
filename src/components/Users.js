@@ -13,8 +13,9 @@ const Users = () => {
         const json = await data.json();
         setUserData(json?.users);
     }
-    console.log(userData)
-    const userColumns = [
+    console.log(userData);
+    
+    const userItems = [
         { key: 'id', header: 'User ID' },
         { key: 'username', header: 'Username' },
         { key: 'firstName', header: 'First Name' },
@@ -25,7 +26,7 @@ const Users = () => {
 
   return (
     <div>
-        <Table data={userData} columns={userColumns} />
+        <Table data={userData} dataItems={userItems} />
     </div>
   )
 }
