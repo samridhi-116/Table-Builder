@@ -11,9 +11,10 @@ const useSearch = (data) => {
         if (typeof value === 'string') {
           return value.toLowerCase().includes(searchData.toLowerCase());
         }
-        if (typeof value === 'number') {
-          return value.toString().toLowerCase().includes(searchData.toLowerCase());
-        }
+        return (
+          (typeof value === 'number' && value.toString() === searchData) ||
+          (typeof value === 'string' && value.toLowerCase() === searchData.toLowerCase())
+        );
       })
     );
     setFilteredData(filtered);

@@ -20,6 +20,8 @@ const Users = () => {
         { key: 'username', header: 'Username' },
         { key: 'firstName', header: 'First Name' },
         { key: 'lastName', header: 'Last Name' },
+        { key: 'email', header: 'Email' },
+        { key: 'phone', header: 'Phone' },
         { key: 'age', header: 'Age' },
         { key: 'bloodGroup', header: 'Blood Group' },
     ];

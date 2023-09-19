@@ -14,11 +14,14 @@ const Products = () => {
         setProductsData(json?.products);
     }
     console.log(productsData)
+    
     const productItems = [
       { key: 'id', header: 'Product ID' },
       { key: 'title', header: 'Title' },
-      { key: 'price', header: 'Price' },
+      { key: 'price', header: 'Price($)' },
+      { key: 'discountPercentage', header: 'Discount' },
       { key: 'rating', header: 'Rating' },
+      { key: 'stock', header: 'Stock' },
       { key: 'brand', header: 'Brand' },
       { key: 'category', header: 'Category' },
   ];
