@@ -12,7 +12,7 @@ const Table = ({ data, dataItems }) => {
     const itemsPerPage = 5;
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
-    const items = filteredData.slice(firstIndex, lastIndex);
+    // const dataPerPage = filteredData.slice(firstIndex, lastIndex);
     const npage = Math.ceil(filteredData.length / itemsPerPage);
     const totalPages = [...Array(npage + 1).keys()].slice(1);
 
@@ -49,7 +49,7 @@ const Table = ({ data, dataItems }) => {
     };
     const sortedData = () => {
         if (sortColumn) {
-          return [...items].sort((a, b) => {
+          return [...filteredData].sort((a, b) => {
             if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
               return sortDirection === 'asc' ? a[sortColumn] - b[sortColumn] : b[sortColumn] - a[sortColumn];
             } else {
@@ -57,8 +57,11 @@ const Table = ({ data, dataItems }) => {
             }
           });
         }
-        return items;
+        return filteredData;
     };
+
+    const sortedDataArray = sortedData();
+    const dataPerPage = sortedDataArray.slice(firstIndex, lastIndex);
 
     return (
         <div>
@@ -94,7 +97,7 @@ const Table = ({ data, dataItems }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {sortedData().map((item) => (
+                    {dataPerPage.map((item) => (
                         <tr key={item.id}>
                             {dataItems.map((itemData) => (
                                 <td key={itemData.key}>{item[itemData.key]}</td>
