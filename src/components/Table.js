@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {MdOutlineSearch} from 'react-icons/md';
 import useSearch from '../utils/useSearch';
+import { Link } from 'react-router-dom';
 
 const Table = ({ data, dataItems }) => {
 
     const { searchData, filteredData, handleSearch } = useSearch(data);
+
+    // Sorting Columns 
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState('asc');
 
@@ -16,10 +19,9 @@ const Table = ({ data, dataItems }) => {
         setSortColumn(column);
         setSortDirection('desc');
     };
-
     const sortedData = () => {
         if (sortColumn) {
-          return [...filteredData].sort((a, b) => {
+          return [...items].sort((a, b) => {
             if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
               return sortDirection === 'asc' ? a[sortColumn] - b[sortColumn] : b[sortColumn] - a[sortColumn];
             } else {
@@ -27,8 +29,36 @@ const Table = ({ data, dataItems }) => {
             }
           });
         }
-        return filteredData;
-      };
+        return items;
+    };
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const items = filteredData.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(filteredData.length / itemsPerPage);
+    const totalPages = [...Array(npage + 1).keys()].slice(1);
+
+    const prevPage = () => {
+        if(currentPage !== 1){
+            setCurrentPage(currentPage - 1);
+        }else{
+            setCurrentPage(currentPage)
+        }
+    }
+    const nextPage = () => {
+        if(currentPage !== npage){
+            setCurrentPage(currentPage + 1);
+        }
+        else{
+            setCurrentPage(currentPage)
+        }
+    }
+    const moveToPage = (n) => {
+        setCurrentPage(n)
+    }
 
     return (
         <div>
@@ -73,6 +103,29 @@ const Table = ({ data, dataItems }) => {
                     ))}
                 </tbody>
             </table>
+            <div className='w-2/5 mx-auto my-6'>
+                <ul className='flex justify-center'>
+                    <li className='px-3 border border-black'>
+                        <Link to='#' onClick={prevPage}>
+                           Prev 
+                        </Link>
+                    </li>
+                    {
+                        totalPages.map((pageNumber, index) => (
+                            <li key={index} className='px-3 border border-black'>
+                                <Link to='#' onClick={()=>{moveToPage(pageNumber)}} >
+                                    {pageNumber}
+                                </Link>
+                            </li>
+                        ))
+                    }
+                    <li className='px-3 border border-black'>
+                        <Link to='#' onClick={nextPage}>
+                           Next 
+                        </Link>
+                    </li>
+                </ul>
+            </div>
         </div>
     )
 }
