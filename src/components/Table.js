@@ -7,31 +7,6 @@ const Table = ({ data, dataItems }) => {
 
     const { searchData, filteredData, handleSearch } = useSearch(data);
 
-    // Sorting Columns 
-    const [sortColumn, setSortColumn] = useState(null);
-    const [sortDirection, setSortDirection] = useState('asc');
-
-    const handleSortAsc = (column) => {
-        setSortColumn(column);
-        setSortDirection('asc');
-    };
-    const handleSortDes = (column) => {
-        setSortColumn(column);
-        setSortDirection('desc');
-    };
-    const sortedData = () => {
-        if (sortColumn) {
-          return [...items].sort((a, b) => {
-            if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
-              return sortDirection === 'asc' ? a[sortColumn] - b[sortColumn] : b[sortColumn] - a[sortColumn];
-            } else {
-              return sortDirection === 'asc' ? a[sortColumn].localeCompare(b[sortColumn]) : b[sortColumn].localeCompare(a[sortColumn]);
-            }
-          });
-        }
-        return items;
-    };
-
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
@@ -59,6 +34,31 @@ const Table = ({ data, dataItems }) => {
     const moveToPage = (n) => {
         setCurrentPage(n)
     }
+
+    // Sorting Columns 
+    const [sortColumn, setSortColumn] = useState(null);
+    const [sortDirection, setSortDirection] = useState('asc');
+
+    const handleSortAsc = (column) => {
+        setSortColumn(column);
+        setSortDirection('asc');
+    };
+    const handleSortDes = (column) => {
+        setSortColumn(column);
+        setSortDirection('desc');
+    };
+    const sortedData = () => {
+        if (sortColumn) {
+          return [...items].sort((a, b) => {
+            if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
+              return sortDirection === 'asc' ? a[sortColumn] - b[sortColumn] : b[sortColumn] - a[sortColumn];
+            } else {
+              return sortDirection === 'asc' ? a[sortColumn].localeCompare(b[sortColumn]) : b[sortColumn].localeCompare(a[sortColumn]);
+            }
+          });
+        }
+        return items;
+    };
 
     return (
         <div>
